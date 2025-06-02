@@ -1,4 +1,4 @@
-import util
 import menu
 
-print(menu.Menu().menu())
+while True:
+    print(menu.Menu().menu())
