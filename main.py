@@ -1,4 +1,4 @@
 import menu
 
-while True:
-    print(menu.Menu().menu())
+menu_live = menu.Menu()
+print(menu_live.menu())
