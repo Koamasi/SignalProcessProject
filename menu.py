@@ -9,8 +9,14 @@ class Menu():
     wave_choice = Choice(
         'Please select wavelet',
         wave_name,
-        icon_style=StringStyle(fore=Fore.blue),
-        selected_style=StringStyle(fore=Fore.blue)
+        icon_style=StringStyle(fore=Fore.lightblue),
+        selected_style=StringStyle(fore=Fore.lightblue)
+    ).get_choice()
+    wave_choice_optional = Choice(
+        'Please select second wavelet',
+        wave_name.append('No more wavelet needed'),
+        icon_style=StringStyle(fore=Fore.lightblue),
+        selected_style=StringStyle(fore=Fore.lightblue)
     ).get_choice()
     window = Tk()
     window.withdraw()
@@ -18,7 +24,11 @@ class Menu():
 
 
     def menu(self):
-        result = {'waveChoice': self.wave_choice[1]}
+        result = {
+            'waveChoice': self.wave_choice[1],
+            'waveChoiceOptional': None if self.wave_choice_optional == 'No more wavelet needed' else self.wave_choice_optional[1],
+            'filePath': self.filePath
+        }
 
         return result
 
