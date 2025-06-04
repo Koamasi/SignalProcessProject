@@ -9,7 +9,7 @@ def ensureLowHigh(level: int) -> dict[str, list[Any]]: #确定并拆分低频与
     result = {'Low':[], 'High':[]}
     return result
 
-def normalize(weight: dict[str, list[float]]) -> dict[str, list[float]]: #权重归一化
+def weight_normalize(weight: dict[str, list[float]]) -> dict[str, list[float]]: #权重归一化
     result = {'Low': [], 'High': []}
 
     if sum(weight['Low']) == 1:
@@ -31,7 +31,7 @@ def normalize(weight: dict[str, list[float]]) -> dict[str, list[float]]: #权重
 
 # TODO 融合部分需要重写
 def custom_weight_fuse(coeffs: list[list[Any]], weight: dict[str, list[float]]) -> list[Any]: #自定义权重融合
-    fused_coeffs = []; weight_norm = normalize(weight)
+    fused_coeffs = []; weight_norm = weight_normalize(weight)
 
     for i in range(len(coeffs)):
         if i:
