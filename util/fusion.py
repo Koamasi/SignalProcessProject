@@ -1,5 +1,7 @@
 import warnings
-from typing import Any
+from typing import Any, Tuple
+
+from numpy import ndarray
 
 
 def ensureLowHigh(level: int) -> dict[str, list[Any]]: #确定并拆分低频与高频部分
@@ -27,7 +29,8 @@ def normalize(weight: dict[str, list[float]]) -> dict[str, list[float]]: #权重
     return result
 
 
-def advLowMaxHigh(coeffs: dict[str, list[Any]], weight: dict[str, list[float]]) -> list[Any]: #自定义权重融合
+# TODO
+def custom_weight_fuse(coeffs: list[list[Any]], weight: dict[str, list[float]]) -> list[Any]: #自定义权重融合
     fused_coeffs = []; weight_norm = normalize(weight)
 
     for i in range(len(coeffs)):
@@ -36,3 +39,74 @@ def advLowMaxHigh(coeffs: dict[str, list[Any]], weight: dict[str, list[float]]) 
 
             )
     return fused_coeffs
+
+[
+    array(
+        [
+            [1, 2, 3],
+            [1, 2, 3]
+        ]
+    )
+]
+
+[
+    array(
+        [
+            [3., 6.]
+        ]
+    ),
+    (
+        array([[0., 0.]]),
+        array([[-1.,  0.]]),
+        array([[0., 0.]])
+    )
+]
+
+[
+    array(
+        [
+            [9.]
+        ]
+    ),
+    (
+        array(
+            [
+                [0.]
+            ]
+        ),
+        array(
+            [
+                [-3.]
+            ]
+        ),
+        array(
+            [
+                [0.]
+            ]
+        )
+    ),
+    (
+        array(
+            [
+                [0., 0.]
+            ]
+        ),
+        array(
+            [
+                [-1.,  0.]
+            ]
+        ),
+        array(
+            [
+                [0., 0.]
+            ]
+        )
+    )
+]
+
+[
+    array([[18.]]),
+    (array([[0.]]), array([[0.]]), array([[0.]])),
+    (array([[0.]]), array([[-3.]]), array([[0.]])),
+    (array([[0., 0.]]), array([[-1.,  0.]]), array([[0., 0.]]))
+]
