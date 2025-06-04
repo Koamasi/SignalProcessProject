@@ -29,7 +29,7 @@ def normalize(weight: dict[str, list[float]]) -> dict[str, list[float]]: #权重
     return result
 
 
-# TODO
+# TODO 融合部分需要重写
 def custom_weight_fuse(coeffs: list[list[Any]], weight: dict[str, list[float]]) -> list[Any]: #自定义权重融合
     fused_coeffs = []; weight_norm = normalize(weight)
 
@@ -37,6 +37,10 @@ def custom_weight_fuse(coeffs: list[list[Any]], weight: dict[str, list[float]]) 
         if i:
             fused_coeffs.append(
 
+            )
+        else:
+            fused_coeffs.append(
+                sum([weight_norm['Low'][j] * coeffs[j][0] for j in range(len(coeffs))])
             )
     return fused_coeffs
 
