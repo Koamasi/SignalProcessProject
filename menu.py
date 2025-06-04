@@ -4,6 +4,7 @@ from terminal_layout.extensions.choice import StringStyle, Choice
 from terminal_layout import Fore
 
 
+# TODO
 class Menu():
     wave_name = pywt.families()
     wave_choice = Choice(
