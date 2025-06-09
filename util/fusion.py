@@ -1,7 +1,11 @@
 import warnings
-from typing import Any, Tuple
+from idlelib.debugger_r import restart_subprocess_debugger
+from typing import Any, Tuple, TypeVar
 
+import numpy as np
 from numpy import ndarray
+
+T = TypeVar('T', list[ndarray], list[list[ndarray]])
 
 
 def ensureLowHigh(level: int) -> dict[str, list[Any]]: #确定并拆分低频与高频部分
@@ -30,19 +34,39 @@ def weight_normalize(weight: dict[str, list[float]]) -> dict[str, list[float]]: 
 
 
 # TODO 融合部分需要重写
-def custom_weight_fuse(coeffs: list[list[Any]], weight: dict[str, list[float]]) -> list[Any]: #自定义权重融合
+def custom_weight_fuse(coeffs: list[list[Any]], weight: dict[str, list[float]], level: int) -> list[Any]: #自定义权重融合
     fused_coeffs = []; weight_norm = weight_normalize(weight)
 
     for i in range(len(coeffs)):
-        if i:
-            fused_coeffs.append(
-
+        fused_coeffs.append(
+            [
+            weight_norm['Low'][i] * coeffs[i][0],
+            (
+                (weight_norm['High'][i] * coeffs[i][j][k]) for k in range(3)
             )
-        else:
-            fused_coeffs.append(
-                sum([weight_norm['Low'][j] * coeffs[j][0] for j in range(len(coeffs))])
-            )
+        ] for j in range(min(1, level), level)
+        )
     return fused_coeffs
+
+
+def max_abs(data: T, is_low: bool) -> T:
+    result = []
+
+    if is_low:
+        stacked = np.stack(data, axis=1)
+        abs_value = np.abs(stacked)
+        max_index = np.argmax(abs_value, axis=0)
+        result = np.choose(max_index, stacked)
+    else:
+        for i in range(3):
+            prestack = [j[i] for j in data]
+            stacked = np.stack(prestack)
+            abs_value = np.abs(stacked)
+            max_index = np.argmax(abs_value, axis=0)
+            result.append(np.choose(max_index, stacked))
+
+    return result
+
 
 [
     array(
