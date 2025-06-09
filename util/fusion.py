@@ -2,6 +2,7 @@ import warnings
 from idlelib.debugger_r import restart_subprocess_debugger
 from typing import Any, Tuple, TypeVar
 
+import cv2
 import numpy as np
 from numpy import ndarray
 
@@ -73,6 +74,25 @@ def max_energy(data: T, is_low: bool, window: int = 5) -> T:
     if is_low:
         result.append(np.maximum(data))
     else:
+        for i in zip(data):
+            for j in range(3):
+
+    return result
+
+
+def _fuse_subband(subband: list[ndarray], window_size: int) -> ndarray:
+    result = np.zeros_like(subband[0]); height, width = subband[0].shape
+    radius = window_size // 2
+    pad_sb = [cv2.copyMakeBorder(i, radius, radius, radius, radius, cv2.BORDER_REFLECT) for i in subband]
+
+    for y in range(radius, height+radius):
+        for x in range(radius, width+radius):
+            for i in range(len(subband)):
+                roi = [pad_sb[i][y-radius:y-radius+1, x-radius:x+radius+1]]
+
+            energy = [np.sum(np.abs(i)) for i in roi]
+
+            result[x-radius, y-radius] = subband[np.argmax(energy)][y-radius, x-radius]
 
     return result
 
