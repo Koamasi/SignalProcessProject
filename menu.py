@@ -5,7 +5,7 @@ from terminal_layout import Fore
 
 
 # TODO
-class Menu():
+class Menu:
     wave_name = pywt.families()
     wave_choice = Choice(
         'Please select wavelet',
