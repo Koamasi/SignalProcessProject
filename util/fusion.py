@@ -74,7 +74,6 @@ def max_energy(data: T, is_low: bool, window: int = 5) -> T:
         result.append(np.maximum(data))
     else:
 
-
     return result
 
 
