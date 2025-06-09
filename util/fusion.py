@@ -33,7 +33,6 @@ def weight_normalize(weight: dict[str, list[float]]) -> dict[str, list[float]]: 
     return result
 
 
-# TODO 融合部分需要重写
 def custom_weight_fuse(coeffs: list[list[Any]], weight: dict[str, list[float]], level: int) -> list[Any]: #自定义权重融合
     fused_coeffs = []; weight_norm = weight_normalize(weight)
 
@@ -64,6 +63,17 @@ def max_abs(data: T, is_low: bool) -> T:
             abs_value = np.abs(stacked)
             max_index = np.argmax(abs_value, axis=0)
             result.append(np.choose(max_index, stacked))
+
+    return result
+
+# TODO 区域能量最大融合
+def max_energy(data: T, is_low: bool, window: int = 5) -> T:
+    result = []
+
+    if is_low:
+        result.append(np.maximum(data))
+    else:
+
 
     return result
 
