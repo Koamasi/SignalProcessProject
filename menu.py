@@ -5,7 +5,8 @@ from terminal_layout.extensions.choice import StringStyle, Choice
 from terminal_layout import Fore
 
 
-# TODO
+# TODO 弃用类 需要获取多图路径 分解方案 小波名称 分解层数 融合方案 若自定义融合需获取权重
+# TODO 可视化进度 存在确认阶段
 class Menu:
     warnings.warn('', DeprecationWarning)
     wave_name = pywt.families()
@@ -34,6 +35,9 @@ class Menu:
         }
 
         return result
+
+
+wave_name = pywt.families()
 
 
 if __name__ == '__main__':
