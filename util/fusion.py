@@ -8,12 +8,6 @@ from numpy import ndarray
 
 T = TypeVar('T', list[ndarray], list[list[ndarray]])
 
-
-def ensureLowHigh(level: int) -> dict[str, list[Any]]: #确定并拆分低频与高频部分
-    warnings.warn('', DeprecationWarning)
-    result = {'Low':[], 'High':[]}
-    return result
-
 def weight_normalize(weight: dict[str, list[float]]) -> dict[str, list[float]]: #权重归一化
     result = {'Low': [], 'High': []}
 
