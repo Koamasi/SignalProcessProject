@@ -1,3 +1,4 @@
+import warnings
 from tkinter import Tk, filedialog
 import pywt
 from terminal_layout.extensions.choice import StringStyle, Choice
@@ -6,6 +7,7 @@ from terminal_layout import Fore
 
 # TODO
 class Menu:
+    warnings.warn('', DeprecationWarning)
     wave_name = pywt.families()
     wave_choice = Choice(
         'Please select wavelet',
