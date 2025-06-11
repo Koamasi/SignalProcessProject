@@ -67,16 +67,22 @@ def max_abs(data: T, is_low: bool) -> T:
 
     return result
 
-# TODO 区域能量最大融合
+# TODO  写你妈
+# FIXME
 def max_energy(data: T, is_low: bool, window: int = 5) -> T:
     result = []
 
     if is_low:
         result.append(np.maximum(data))
     else:
+        H = _fuse_subband([j[i] for j in data])
+        V = _fuse_subband([j[i] for j in data])
+        D = _fuse_subband([j[i] for j in data])
+
         for i in zip(data):
             for j in range(3):
-
+                H = _fuse_subband()
+                result.append()
     return result
 
 
@@ -84,6 +90,7 @@ def _fuse_subband(subband: list[ndarray], window_size: int) -> ndarray:
     result = np.zeros_like(subband[0]); height, width = subband[0].shape
     radius = window_size // 2
     pad_sb = [cv2.copyMakeBorder(i, radius, radius, radius, radius, cv2.BORDER_REFLECT) for i in subband]
+    roi = []
 
     for y in range(radius, height+radius):
         for x in range(radius, width+radius):
